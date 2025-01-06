@@ -142,37 +142,22 @@ export default function Product() {
 
   return (
     <div className="p-2 flex flex-col gap-2">
-      <div className="flex flex-row gap-2 items-center w-full bg-base-300 p-2">
+      <div className="flex flex-row gap-2 items-center w-full bg-base-100 p-2">
    
         <dialog id="my_modal_4" className="modal">
           <div className="modal-box w-11/12 max-w-5xl">
             <p className="p-2 text-2xl font-medium ">Edit</p>
             <div className="flex gap-5 mt-5 items-center place-content-center">
-              <input
-                type="text"
-                className="input input-sm bg-base-200"
-                placeholder="Product ID"
-                value={selectedProduct?.id || ""}
-                disabled
-              />
-              <input
-                type="text"
-                className="input input-sm bg-base-200"
-                placeholder="Product Name"
-                value={selectedProduct?.PRODUCT_NAME || ""}
-                onChange={(e) =>
+              <input type="text" className="input input-sm bg-base-200" placeholder="Product ID" value={selectedProduct?.id || ""} disabled />
+              <input type="text" className="input input-sm bg-base-200" placeholder="Product Name"value={selectedProduct?.PRODUCT_NAME || ""} onChange={(e) =>
                   setSelectedProduct((prev) => ({
                     ...prev,
                     PRODUCT_NAME: e.target.value,
                   }))
                 }
               />
-              <input
-                type="text"
-                className="input input-sm bg-base-200"
-                placeholder="Price"
-                value={selectedProduct?.PRODUCT_PRICE || ""}
-                onChange={(e) =>
+
+              <input type="text" className="input input-sm bg-base-200" placeholder="Price" value={selectedProduct?.PRODUCT_PRICE || ""} onChange={(e) =>
                   setSelectedProduct((prev) => ({
                     ...prev,
                     PRODUCT_PRICE: e.target.value,
@@ -180,11 +165,9 @@ export default function Product() {
                 }
               />
             </div>
+
             <div className="modal-action">
-              <button
-                onClick={saveProductChanges}
-                className="btn btn-sm btn-primary"
-              >
+              <button onClick={saveProductChanges} className="btn btn-sm btn-primary" >
                 Save
               </button>
               <form method="dialog">
@@ -194,61 +177,33 @@ export default function Product() {
           </div>
         </dialog>
 
-        <button onClick={addProduct} className="btn btn-primary btn-sm">
-          <MdAdd className="w-6 h-6" />
-        </button>
-        <input
-          type="text"
-          placeholder="Product Name"
-          value={ProductName}
-          onChange={(e) => setProductName(e.target.value)}
-          className="w-[300px] input input-sm"
-        />
-        <input
-          type="number"
-          placeholder="Product Price"
-          value={ProductPrice}
-          onChange={(e) => setProductPrice(e.target.value)}
-          className="w-[100px] input input-sm w-36"
-        />
-        <input
-          type="file"
-          accept="image/png, image/jpg, image/jpeg"
-          onChange={handleFileChange}
-          className="input input-sm bg-base-100"
-        />
+        <div className="flex flex-col gap-2 sm:flex-row w-full">
+
+          
+          <input type="text" placeholder="Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} className="w-[300px] input input-sm bg-base-200 w-full sm:w-56" />
+          <input type="number" placeholder="Product Price" value={ProductPrice} onChange={(e) => setProductPrice(e.target.value)} className="w-[100px] input input-sm w-full sm:w-36 bg-base-200" />
+          <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleFileChange} className="input input-sm bg-base-200" />
+          <button onClick={addProduct} className="btn btn-primary btn-sm">
+            Add Product
+          </button>
+        </div>
       </div>
       <div className="mt-4">
         <h3 className="text-xl font-semibold">Products List</h3>
         <div className="flex flex-col">
           {products.length > 0 ? (
             products.map((product) => (
-              <div
-                key={product.id}
-                className="flex items-center justify-between bg-base-200 p-1 my-1 rounded-md"
-              >
-                <span className="w-[100px] text-left">{product.id}</span>
-                <span className="w-[200px] text-left">
-                  {product.PRODUCT_NAME}
-                </span>
-                <span className="w-[100px] text-left">
-                  {product.PRODUCT_PRICE}
-                </span>
-                <span className="w-[200px] text-left">
-                  {new Date(product.PRODUCT_TIME_UPLOADED).toLocaleString()}
-                </span>
+              <div key={product.id} className="flex flex-col  sm:flex-row w-full  pl-2  pr-2 gap-2 items-center justify-between bg-base-200  my-1 rounded-md" >
+                <span className="w-full sm:w-[200px] text-left ">ID: {product.id}</span>
+                <span className="w-full sm:w-[200px] text-left">NAME:  {product.PRODUCT_NAME} </span>
+                <span className="w-full sm:w-[200px] text-left">PRICE:  {product.PRODUCT_PRICE} </span>
+                <span className="w-full sm:w-[200px] text-left">DATE ADDED: {new Date(product.PRODUCT_TIME_UPLOADED).toLocaleString()} </span>
 
                 <div className="flex gap-1">
-                  <button
-                    onClick={() => deleteProduct(product.id, product.IMAGE_URL)}
-                    className="btn btn-sm btn-error"
-                  >
+                  <button onClick={() => deleteProduct(product.id, product.IMAGE_URL)} className="btn btn-sm btn-error" >
                     Delete
                   </button>
-                  <button
-                    onClick={() => handleEditClick(product)}
-                    className="btn btn-sm btn-info ml-5"
-                  >
+                  <button onClick={() => handleEditClick(product)} className="btn btn-sm btn-info ml-5" >
                     Edit
                   </button>
                 </div>

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getDatabase, ref, set, get, child } from "firebase/database"; // Import Firebase Database SDK
 
 export default function Home() {
   const [image, setImage] = useState(null);
@@ -8,114 +9,166 @@ export default function Home() {
   const maxTitleLength = 50;
   const maxMotoLength = 200;
 
+  const db = getDatabase(); // Initialize the Firebase Database
+
+  useEffect(() => {
+    // Fetch existing data from Firebase on component load
+    const fetchData = async () => {
+      try {
+        const dbRef = ref(db);
+        const snapshot = await get(child(dbRef, "home"));
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          setImage(data.coverUrl || null);
+          setTitle(data.title || "");
+          setMoto(data.moto || "");
+        } else {
+          console.log("No data available");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [db]);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        setImage(reader.result);
+        setImage(reader.result); // Set the image preview
       };
 
-      // Read the file as a data URL (base64 string)
       reader.readAsDataURL(file);
     }
   };
 
-  // Handle input change for title
   const handleTitleChange = (event) => {
     const value = event.target.value;
     if (value.length <= maxTitleLength) {
-      setTitle(value); // Update the title if within limit
+      setTitle(value);
     }
   };
 
-  // Handle input change for moto
   const handleMotoChange = (event) => {
     const value = event.target.value;
     if (value.length <= maxMotoLength) {
-      setMoto(value); // Update the moto if within limit
+      setMoto(value);
     }
   };
 
-  // Function to handle Edit button click
   const handleEditClick = () => {
-    setIsEditable(true); // Enable the text areas for editing
+    setIsEditable(true);
   };
 
-  // Function to handle Save button click
-  const handleSaveClick = () => {
-    setIsEditable(false); // Disable the text areas after saving
-    // You can add any logic to save the data here (e.g., API call)
+  const handleSaveClick = async () => {
+    if (!image || !title || !moto) {
+      alert("Please provide all fields before saving.");
+      return;
+    }
+
+    try {
+      // Upload image to the server
+      const response = await fetch("https://server-n991.onrender.com/upload", {
+        method: "POST",
+        body: JSON.stringify({ file: image }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to upload image");
+      }
+
+      const { url: imageUrl } = await response.json(); // Assuming API returns { url: "uploaded_image_url" }
+
+      // Save data to Firebase Realtime Database
+      const userData = {
+        coverUrl: imageUrl,
+        title,
+        moto,
+      };
+
+      await set(ref(db, "home"), userData); // Save to /home path in Firebase
+      alert("Data saved successfully!");
+      setIsEditable(false);
+    } catch (error) {
+      console.error("Error saving data:", error);
+      alert("Failed to save data.");
+    }
   };
 
   return (
-    <>
+    <div className="flex flex-col items-center w-full px-4 md:px-8 lg:px-16">
       {image ? (
-        <div className="mt-5 w-full h-[400px] items-center place-items-center bg-base-200">
+        <div className="mt-5 w-full md:w-3/4 lg:w-1/2 h-[300px] md:h-[400px] bg-base-100 rounded-lg shadow-lg flex items-center justify-center">
           <img
             src={image}
             alt="Selected Cover"
-            className="max-w-full h-auto rounded-lg shadow-lg h-full"
+            className="w-full h-full object-cover rounded-lg"
           />
         </div>
       ) : (
-        <div className="mt-5 w-full h-[400px] items-center place-items-center bg-base-200"></div>
+        <div className="mt-5 w-full md:w-3/4 lg:w-1/2 h-[300px] md:h-[400px] bg-base-100 rounded-lg shadow-lg flex items-center justify-center"></div>
       )}
-      <div className="cover flex flex-row p-5 gap-5 items-center place-content-center">
-        <p className="text-lg">Change Cover</p>
+
+      <div className="flex flex-col md:flex-row md:gap-5 mt-5 items-center w-full md:w-3/4 lg:w-1/2">
+        <p className="text-lg mb-2 md:mb-0">Change Cover</p>
         <input
           type="file"
           accept="image/jpeg, image/png, image/jpg"
-          className="file-input w-full max-w-xs bg-base-200"
-          onChange={handleFileChange} // Trigger file change handler
+          className="file-input w-full md:w-auto max-w-xs bg-base-200"
+          onChange={handleFileChange}
         />
       </div>
 
-      <div className="flex flex-col w-full place-content-center items-center gap-2 p-4">
-        <p>Change Title</p>
-        {!isEditable && (
-          <div className="lg:tooltip lg:tooltip-right" data-tip="Click to Edit">
-            <textarea
-              className="textarea textarea-primary w-[300px]"
-              placeholder={`Max ${maxTitleLength} characters`}
-              value={title} // Controlled input
-              onChange={handleTitleChange} // Trigger handleTitleChange on input
-              disabled={!isEditable} // Disable textarea if not in edit mode
-            />
-          </div>
-        )}
-        {isEditable && (
+      <div className="flex flex-col w-full md:w-3/4 lg:w-1/2 items-center mt-5 gap-4">
+        <div className="w-full">
+          <p className="text-center mb-2">Change Title</p>
           <textarea
-            className="textarea textarea-primary w-[300px]"
+            className="textarea textarea-primary w-full"
             placeholder={`Max ${maxTitleLength} characters`}
-            value={title} // Controlled input
-            onChange={handleTitleChange} // Trigger handleTitleChange on input
-            disabled={!isEditable} // Disable textarea if not in edit mode
+            value={title}
+            onChange={handleTitleChange}
+            disabled={!isEditable}
           />
-        )}
-        <p className="text-sm">
-          {maxTitleLength - title.length} characters remaining
-        </p>{" "}
-        {/* Dynamic character counter for title */}
-        <p>Change Moto</p>
-        {!isEditable && (
-          <div className="lg:tooltip lg:tooltip-right" data-tip="Click to Edit">
-            <textarea className="textarea textarea-primary w-[300px]" placeholder={`Max ${maxMotoLength} characters`} value={moto}  onChange={handleMotoChange} disabled={!isEditable} />
-          </div>
-        )}
-        {isEditable && (
-          <textarea className="textarea textarea-primary w-[300px]" placeholder={`Max ${maxMotoLength} characters`} value={moto} onChange={handleMotoChange}  disabled={!isEditable} />
-        )}
-        <p className="text-sm">
-          {maxMotoLength - moto.length} characters remaining
-        </p>{" "}
-        {/* Dynamic character counter for moto */}
-        <div className="flex flex-row gap-2">
-          <button className="btn btn-md btn-neutral w-[100px]" onClick={handleEditClick} > Edit </button>
-          <button className="btn btn-md btn-neutral w-[100px]" onClick={handleSaveClick} > Save </button>
+          <p className="text-sm text-right">
+            {maxTitleLength - title.length} characters remaining
+          </p>
+        </div>
+
+        <div className="w-full">
+          <p className="text-center mb-2">Change Moto</p>
+          <textarea
+            className="textarea textarea-primary w-full"
+            placeholder={`Max ${maxMotoLength} characters`}
+            value={moto}
+            onChange={handleMotoChange}
+            disabled={!isEditable}
+          />
+          <p className="text-sm text-right">
+            {maxMotoLength - moto.length} characters remaining
+          </p>
+        </div>
+
+        <div className="flex flex-row gap-4 w-full justify-center">
+          <button
+            className="btn btn-md btn-neutral w-[120px] md:w-[150px]"
+            onClick={handleEditClick}
+          >
+            Edit
+          </button>
+          <button
+            className="btn btn-md btn-neutral w-[120px] md:w-[150px]"
+            onClick={handleSaveClick}
+          >
+            Save
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
+

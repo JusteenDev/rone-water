@@ -8,7 +8,7 @@ import Home from "./home/Home.jsx";
 import Product from "./product/Product.jsx";
 
 export default function Admin() {
-  const [currentPage, setCurrentPage] = useState("home");
+  const [currentPage, setCurrentPage] = useState("product");
 
   return (
     <>
@@ -21,21 +21,11 @@ export default function Admin() {
 
       <div className="outerlayout flex flex-row w-full text-center ">
         {/* Sidebar */}
-        <div className="w-[50px] bg-base-100 flex flex-col gap-2">
+        <div className="w-[50px] bg-base-100 flex flex-col gap-2 sm:flex-col">
           <div className="lg:tooltip lg:tooltip-right" data-tip="Home">
-            <button onClick={() => setCurrentPage("home")} className="btn btn-primary w-full ml-1 mt-2" >
-              <FiHome />
-            </button>
           </div>
           <div className="lg:tooltip lg:tooltip-right" data-tip="Product">
-            <button onClick={() => setCurrentPage("product")} className="btn btn-primary w-full ml-1 " >
-              <MdOutlineProductionQuantityLimits />
-            </button>
-          </div>
-          <div className="lg:tooltip lg:tooltip-right" data-tip="About">
-            <button onClick={() => setCurrentPage("about")} className="btn btn-primary w-full ml-1" >
-              <MdRoundaboutRight />
-            </button>
+            <button onClick={() => setCurrentPage("product")} className="btn btn-primary w-full ml-1 " > <MdOutlineProductionQuantityLimits /> </button>
           </div>
           <div className="lg:tooltip lg:tooltip-right" data-tip="Contact">
             <button onClick={() => setCurrentPage("contact")} className="btn btn-primary w-full ml-1" >
@@ -46,7 +36,6 @@ export default function Admin() {
 
         {/* Content */}
         <div className="w-full h-full">
-          {currentPage === "home" && <Home />}
           {currentPage === "product" && <Product/> }
           {currentPage === "about" && <div>About Page</div>}
           {currentPage === "contact" && <div>Contact Page</div>}
