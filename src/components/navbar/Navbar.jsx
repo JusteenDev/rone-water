@@ -21,10 +21,6 @@ export default function Navbar() {
               Experience the purest and freshest drinking water. Clean, safe,
               and perfect for your family’s needs. Stay hydrated, stay healthy!
             </p>
-            <div className="flex flex-row items-center place-content-center gap-2">
-              <button className="btn btn-primary">About Us</button>
-              <button className="btn btn-primary">Contact Us</button>
-            </div>
           </div>
         </div>
       </div>
