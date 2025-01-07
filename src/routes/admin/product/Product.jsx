@@ -177,12 +177,12 @@ export default function Product() {
           </div>
         </dialog>
 
-        <div className="flex flex-col gap-2 sm:flex-row w-full">
+        <div className="flex flex-col gap-2 sm:flex-row w-fit">
 
           
-          <input type="text" placeholder="Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} className="w-[300px] input input-sm bg-base-200 w-full sm:w-56" />
+          <input type="text" placeholder="Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} className="w-[300px] input input-sm bg-base-200  w-full sm:w-56" />
           <input type="number" placeholder="Product Price" value={ProductPrice} onChange={(e) => setProductPrice(e.target.value)} className="w-[100px] input input-sm w-full sm:w-36 bg-base-200" />
-          <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleFileChange} className="input input-sm bg-base-200" />
+          <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleFileChange} className="input input-sm bg-base-200 w-full" />
           <button onClick={addProduct} className="btn btn-primary btn-sm">
             Add Product
           </button>
