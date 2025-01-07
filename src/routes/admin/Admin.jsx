@@ -5,7 +5,7 @@ import { MdRoundaboutRight } from "react-icons/md";
 import { MdOutlineContactMail } from "react-icons/md";
 import { MdOutlineLocalShipping } from "react-icons/md";
 
-import Home from "./home/Home.jsx";
+import Order from "./order/Order.jsx";
 import Product from "./product/Product.jsx";
 import About from "./about/About.jsx"
 
@@ -34,13 +34,13 @@ export default function Admin() {
           </div>
           
           <div className="lg:tooltip lg:tooltip-right" data-tip="About">
-            <button onClick={() => setCurrentPage("contact")} className="btn btn-primary w-full ml-1" > <MdOutlineContactMail className="w-7 h-7"  /> </button>
+            <button onClick={() => setCurrentPage("about")} className="btn btn-primary w-full ml-1" > <MdOutlineContactMail className="w-7 h-7"  /> </button>
           </div>
         </div>
 
         {/* Content */}
         <div className="w-full h-full">
-          {currentPage === "order" && <Product/> }
+          {currentPage === "order" && <Order/> }
           {currentPage === "product" && <Product/> }
           {currentPage === "about" && <About/>}
         </div>
