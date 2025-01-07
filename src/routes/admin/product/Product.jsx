@@ -182,7 +182,7 @@ export default function Product() {
           
           <input type="text" placeholder="Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} className="w-[300px] input input-sm bg-base-200  w-full sm:w-56" />
           <input type="number" placeholder="Product Price" value={ProductPrice} onChange={(e) => setProductPrice(e.target.value)} className="w-[100px] input input-sm w-full sm:w-36 bg-base-200" />
-          <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleFileChange} className="input input-sm bg-base-200 w-full" />
+          <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleFileChange} className="file-input file-input-sm bg-base-200 w-full" />
           <button onClick={addProduct} className="btn btn-primary btn-sm">
             Add Product
           </button>
@@ -193,11 +193,11 @@ export default function Product() {
         <div className="flex flex-col">
           {products.length > 0 ? (
             products.map((product) => (
-              <div key={product.id} className="flex flex-col  sm:flex-row w-full  pl-2  pr-2 gap-2 items-center justify-between bg-base-200  my-1 rounded-md" >
-                <span className="w-full sm:w-[200px] text-left ">ID: {product.id}</span>
-                <span className="w-full sm:w-[200px] text-left">NAME:  {product.PRODUCT_NAME} </span>
-                <span className="w-full sm:w-[200px] text-left">PRICE:  {product.PRODUCT_PRICE} </span>
-                <span className="w-full sm:w-[200px] text-left">DATE ADDED: {new Date(product.PRODUCT_TIME_UPLOADED).toLocaleString()} </span>
+              <div key={product.id} className="flex flex-col  sm:flex-row w-full p-3 items-center justify-between bg-base-100 outline bg-base-200 my-1 rounded-md" >
+                <span className="w-full sm:w-[200px] text-justify">ID:         {product.id}</span>
+                <span className="w-full sm:w-[200px] text-justify"> NAME:       {product.PRODUCT_NAME} </span>
+                <span className="w-full sm:w-[200px] text-justify"> PRICE:      {product.PRODUCT_PRICE} </span>
+                <span className="w-full sm:w-[200px] text-justify"> DATE ADDED: {new Date(product.PRODUCT_TIME_UPLOADED).toLocaleString()} </span>
 
                 <div className="flex gap-1">
                   <button onClick={() => deleteProduct(product.id, product.IMAGE_URL)} className="btn btn-sm btn-error" >
