@@ -54,13 +54,13 @@ function App() {
     <>
       <Navbar />
       <div className="min-h-screen bg-base-300">
-        <p className="text-3xl font-medium text-center sm:text-left p-4">Products</p>
+        <p className="text-2xl font-medium text-center sm:text-left p-4">Products</p>
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <span className="loading loading-spinner text-primary"></span>
           </div>
         ) : (
-          <div className="overflow-x-auto flex flex-row gap-2">
+          <div className="overflow-x-auto flex flex-row gap-1">
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -73,7 +73,7 @@ function App() {
         )}
 
         <div className="w-ful  mt-8 items-center place-content-center">
-          <p className="text-3xl font-medium text-center sm:text-left p-4">About Us</p>
+          <p className="text-2xl font-medium text-center sm:text-left p-4">About Us</p>
           {loading ? (
             <div className="flex justify-center items-center h-64">
               <span className="loading loading-spinner text-primary"></span>

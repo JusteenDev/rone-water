@@ -149,27 +149,12 @@ export default function Product() {
             <p className="p-2 text-2xl font-medium ">Edit</p>
             <div className="flex gap-5 mt-5 items-center place-content-center">
               <input type="text" className="input input-sm bg-base-200" placeholder="Product ID" value={selectedProduct?.id || ""} disabled />
-              <input type="text" className="input input-sm bg-base-200" placeholder="Product Name"value={selectedProduct?.PRODUCT_NAME || ""} onChange={(e) =>
-                  setSelectedProduct((prev) => ({
-                    ...prev,
-                    PRODUCT_NAME: e.target.value,
-                  }))
-                }
-              />
-
-              <input type="text" className="input input-sm bg-base-200" placeholder="Price" value={selectedProduct?.PRODUCT_PRICE || ""} onChange={(e) =>
-                  setSelectedProduct((prev) => ({
-                    ...prev,
-                    PRODUCT_PRICE: e.target.value,
-                  }))
-                }
-              />
+              <input type="text" className="input input-sm bg-base-200" placeholder="Product Name"value={selectedProduct?.PRODUCT_NAME || ""} onChange={(e) => setSelectedProduct((prev) => ({ ...prev, PRODUCT_NAME: e.target.value, })) } />
+              <input type="text" className="input input-sm bg-base-200" placeholder="Price" value={selectedProduct?.PRODUCT_PRICE || ""} onChange={(e) => setSelectedProduct((prev) => ({ ...prev, PRODUCT_PRICE: e.target.value, })) } />
             </div>
 
             <div className="modal-action">
-              <button onClick={saveProductChanges} className="btn btn-sm btn-primary" >
-                Save
-              </button>
+              <button onClick={saveProductChanges} className="btn btn-sm btn-primary" > Save </button>
               <form method="dialog">
                 <button className="btn btn-sm">Close</button>
               </form>
@@ -191,13 +176,13 @@ export default function Product() {
         <div className="flex flex-col">
           {products.length > 0 ? (
             products.map((product) => (
-              <div key={product.id} className="flex flex-col  sm:flex-row w-full p-3 items-center justify-between bg-base-100 outline bg-base-200 my-1 rounded-md" >
-                <span className="w-full sm:w-[200px] text-justify">ID:         {product.id}</span>
-                <span className="w-full sm:w-[200px] text-justify"> NAME:       {product.PRODUCT_NAME} </span>
-                <span className="w-full sm:w-[200px] text-justify"> PRICE:      {product.PRODUCT_PRICE} </span>
-                <span className="w-full sm:w-[200px] text-justify"> DATE ADDED: {new Date(product.PRODUCT_TIME_UPLOADED).toLocaleString()} </span>
+              <div key={product.id} className="flex flex-col p-1  sm:flex-row w-full items-center justify-start bg-base-100 outline bg-base-200 my-1 rounded-md" >
+                <span className="w-full sm:w-[180px] text-center">ID:          {product.id}</span>
+                <span className="w-full sm:w-[180px] text-center"> NAME:       {product.PRODUCT_NAME} </span>
+                <span className="w-full sm:w-[180px] text-center"> PRICE:      {product.PRODUCT_PRICE} </span>
+                <span className="w-full sm:w-[220px] text-center"> DATE:       {new Date(product.PRODUCT_TIME_UPLOADED).toLocaleString()} </span>
 
-                <div className="flex gap-1">
+                <div className="flex flex-row ml-2">
                   <button onClick={() => deleteProduct(product.id, product.IMAGE_URL)} className="btn btn-sm btn-error" >
                     Delete
                   </button>

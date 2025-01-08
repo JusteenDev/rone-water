@@ -54,6 +54,7 @@ export default function About() {
         }
       });
     };
+    
     fetchAboutData();
     return () => {
       const db = getDatabase();
@@ -98,6 +99,7 @@ export default function About() {
 
   return (
     <div className="p-4 flex flex-col gap-4 items-center place-content-center">
+      
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box w-full max-w-2xl p-4">
           <p className="text-2xl font-semibold text-center">Edit About Section</p>
@@ -117,7 +119,7 @@ export default function About() {
       
       <div className="flex flex-col gap-1 sm:w-80">
         <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} className="input input-sm bg-base-200 " />
-        <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} className="textarea textarea-sm bg-base-20" />
+        <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} className="textarea textarea-sm bg-base-200" />
         <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleFileChange} className="file-input file-input-sm bg-base-200  " />
         <button onClick={handleAboutSubmit} className="btn btn-primary mt-1">Add About Section</button>
       </div>

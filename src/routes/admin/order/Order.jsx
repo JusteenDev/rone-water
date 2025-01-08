@@ -39,14 +39,14 @@ export default function Order() {
   return (
     <>
       {/* Summary */}
-      <div className="bg-base-300 w-full h-[50px] flex justify-between items-center px-2 text-sm sm-text-md">
+      <div className="bg-base-300 ml-2 w-[300px] sm:w-full  h-[50px] flex justify-between items-center px-2 text-sm sm-text-md">
         <p>Total Orders: {orders.length}</p>
         <p>Total Quantity Sold: {totalQuantity}</p>
         <p>Total Money Earned: ₱{totalEarnings}</p>
       </div>
 
       {/* List of Orders */}
-      <div className="p-4">
+      <div className="p-2 sm:p-4">
         <h2 className="text-lg font-bold mb-2">Customer Orders</h2>
 
         {orders.length === 0 ? (
@@ -93,14 +93,14 @@ export default function Order() {
         {/* Mobile view */}
         <div className="md:hidden">
           {orders.map((order) => (
-            <div key={order.id} className="bg-base-200 p-4 mb-4 rounded-lg shadow-md">
+            <div key={order.id} className="bg-base-200 p-2 mb-4 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold text-left">{order.PRODUCT_NAME}</h3>
               <p className="text-left text-sm"><strong>Name:</strong> {order.NAME}</p>
               <p className="text-left text-sm"><strong>Address:</strong> {order.ADDRESS}</p>
               <p className="text-left text-sm"><strong>Quantity:</strong> {order.QUANTITY}</p>
               <p className="text-left text-sm"><strong>Price:</strong> ₱{order.PRODUCT_PRICE}</p>
               <p className="text-left text-sm"><strong>Total:</strong> ₱{order.QUANTITY * order.PRODUCT_PRICE}</p>
-              <button className="btn btn-sm btn-error mt-2" onClick={() => deleteOrder(order.id)}>Delete</button>
+              <button className="btn btn-sm btn-primary mt-2 shadow-xl" onClick={() => deleteOrder(order.id)}>Delete</button>
             </div>
           ))}
         </div>

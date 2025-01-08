@@ -36,6 +36,7 @@ export default function Admin() {
           <div className="lg:tooltip lg:tooltip-right" data-tip="About">
             <button onClick={() => setCurrentPage("about")} className="btn btn-primary w-full ml-1" > <MdOutlineContactMail className="w-7 h-7"  /> </button>
           </div>
+          
         </div>
 
         {/* Content */}
