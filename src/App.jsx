@@ -72,17 +72,17 @@ function App() {
           </div>
         )}
 
-        <div className="w-full h-fit mt-8 items-center place-content-center">
+        <div className="w-ful  mt-8 items-center place-content-center">
           <p className="text-3xl font-medium text-center sm:text-left p-4">About Us</p>
           {loading ? (
             <div className="flex justify-center items-center h-64">
               <span className="loading loading-spinner text-primary"></span>
             </div>
           ) : (
-            <div className="flex flex-col sm:flex-cols w-full gap-2 p-4 items-center place-content-center">
+            <div className="flex flex-col w-full gap-2 p-2 items-center place-content-center">
               {aboutData.length > 0 ? (
                 aboutData.map((about) => (
-                  <div key={about.id} className="card w-80 bg-base-300 shadow-lg p-4">
+                  <div key={about.id} className="card w-full sm:w-1/2 bg-base-300 shadow-lg p-2">
                     <img src={about.PHOTO_URL} alt={about.TITLE} className="h-full w-full  rounded-md mb-4" />
                     <h4 className="font-semibold text-lg">{about.TITLE}</h4>
                     <p className="text-sm">{about.DESCRIPTION}</p>

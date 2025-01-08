@@ -8,7 +8,7 @@ export default function Navbar() {
         className="hero min-h-screen bg-cover"
         style={{
           backgroundImage:
-            "url(https://res.cloudinary.com/dv8p1hpew/image/upload/v1736126740/g9k8a80vqpvra0njogvi.jpg)",
+            "url(https://res.cloudinary.com/dv8p1hpew/image/upload/v1736310604/cgy9mvt4jpxmolgkbysy.png)",
         }}
       >
         <div className="hero-overlay bg-opacity-20 "></div>
