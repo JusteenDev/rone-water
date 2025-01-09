@@ -16,12 +16,11 @@ export default function Footer() {
         <p className="text-xl font-medium">Contact Us</p>
         <div className="grid grid-cols-1 gap-4 text-md font-extrabold mt-4">
           <a className="flex gap-4 items-center underline hover:text-secondary" href="https://www.google.com/maps?q=9-G+Parinas+St.+Road+20+Project+8+Qc" target="_blank" rel="noopener noreferrer" >
-            <FaLocationDot className="w-7 h-7" />
-            9-G Parinas St. Road 20 Project 8 Qc
+            <FaLocationDot className="w-7 h-7" /> 9-G Parinas St. Road 20 Project 8 Qc
           </a>
           <a href="tel:7954-6823" className="flex gap-4 items-center underline hover:text-secondary"> <TbDeviceLandlinePhone className="w-7 h-7" /> 7954-6823 </a>
           <div className="flex gap-2">
-            <a href="tel:0915-975-0849" className="flex gap-4 items-center underline hover:text-secondary"> <IoCall className="w-7 h-7" /> 0915-975-0849 </a>
+            <a href="tel:0915-975-0849" className="flex gap-4 items-center underline hover:text-secondary"> <IoCall className="w-7 h-7" /> 0915-975-0849 </a> 
             <p>or</p>
             <a href="tel:0928-433-4978" className="flex gap-4 items-center underline hover:text-secondary"> 0928-433-4978 </a>
           </div>
