@@ -24,10 +24,7 @@ export default function Footer() {
             <p>or</p>
             <a href="tel:0928-433-4978" className="flex gap-4 items-center underline hover:text-secondary"> 0928-433-4978 </a>
           </div>
-          <a className="flex gap-4 items-center text-lg underline hover:text-blue-600" href="https://www.facebook.com/RONEWATERPURIFIED?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" >
-            <FaFacebookSquare className="w-7 h-7" />
-            Follow us on Facebook
-          </a>
+          <a className="flex gap-4 items-center text-lg underline hover:text-blue-600" href="https://www.facebook.com/RONEWATERPURIFIED?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" > <FaFacebookSquare className="w-7 h-7" /> Follow us on Facebook </a>
         </div>
       </nav>
     </footer>

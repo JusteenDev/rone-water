@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const serverURL = "http://localhost:4000";
+const serverURL = "https://server-n991.onrender.com";
 
-// Function to check if the server is awake
 const checkServerAwake = async () => {
   let isAwake = false;
   console.log("Checking if server is awake...");
@@ -23,7 +22,6 @@ const checkServerAwake = async () => {
   return isAwake;
 };
 
-// Function to send data to the awake route
 const sendDataToAwakeRoute = async (data) => {
   try {
     const response = await axios.get(`${serverURL}/awake/${data}`);
@@ -35,12 +33,11 @@ const sendDataToAwakeRoute = async (data) => {
   }
 };
 
-// Automatically run the server check and send data on import
 (async () => {
   try {
     await checkServerAwake();
     console.log("Now you can use the server.");
-    sendDataToAwakeRoute("HelloServer"); // Replace "HelloServer" with the data you want to send
+    sendDataToAwakeRoute("HelloServer");
   } catch (error) {
     console.error("Error while connecting to the server:", error.message);
   }

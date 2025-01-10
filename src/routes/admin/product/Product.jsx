@@ -31,6 +31,7 @@ export default function Product() {
       return {
         URL: result.data.secure_url,
         PRODUCT_KEY: result.data.display_name,
+        ASSET_ID: result.data.public_id
       };
     } catch (error) {
       console.error("Upload error:", error);
@@ -50,8 +51,9 @@ export default function Product() {
       const timestamp = Date.now();
 
       const db = getDatabase();
-      const productRef = ref(db, "PRODUCTS/" + timestamp);
+      const productRef = ref(db, "PRODUCTS/" + getProductData.ASSET_ID);
       await set(productRef, {
+        PRODUCT_ID: getProductData.ASSET_ID,
         PRODUCT_NAME: ProductName,
         PRODUCT_TIME_UPLOADED: timestamp,
         PRODUCT_PRICE: ProductPrice,
@@ -66,35 +68,31 @@ export default function Product() {
     }
   };
 
-  const deleteProduct = async (productId, imageUrl) => {
+  const deleteProduct = async (productId, assetId) => {
     const db = getDatabase();
     const productRef = ref(db, "PRODUCTS/" + productId);
 
     try {
       await remove(productRef);
-
-      const deleteImage = await fetch("https://server-n991.onrender.com/delete-image", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ imageUrl }),
+      const deleteImage = await fetch("https://server-n991.onrender.com/delete/" + assetId, {
+        method: "DELETE",
       });
-
+      
       if (!deleteImage.ok) {
-        throw new Error("Error deleting image");
+        throw new Error("Error deleting image from Cloudinary");
       }
 
-      alert("Product deleted successfully!");
+      alert("Product and image deleted successfully!");
     } catch (error) {
       console.error("Error deleting product:", error);
+      alert("Failed to delete the product or image");
     }
-  };
+  }
 
   const handleEditClick = (product) => {
     setSelectedProduct(product);
     document.getElementById("my_modal_4").showModal();
-  };
+  }
 
   const saveProductChanges = async () => {
     if (!selectedProduct) return;
@@ -109,7 +107,7 @@ export default function Product() {
     } catch (error) {
       console.error("Error updating product:", error);
     }
-  };
+  }
 
   useEffect(() => {
     const fetchProducts = () => {
@@ -143,14 +141,14 @@ export default function Product() {
   return (
     <div className="p-2 flex flex-col gap-2">
       <div className="flex flex-row gap-2 items-center w-full bg-base-100 p-2">
-   
+
         <dialog id="my_modal_4" className="modal">
           <div className="modal-box w-11/12 max-w-5xl">
             <p className="p-2 text-2xl font-medium ">Edit</p>
             <div className="flex gap-5 mt-5 items-center place-content-center">
               <input type="text" className="input input-sm bg-base-200" placeholder="Product ID" value={selectedProduct?.id || ""} disabled />
-              <input type="text" className="input input-sm bg-base-200" placeholder="Product Name"value={selectedProduct?.PRODUCT_NAME || ""} onChange={(e) => setSelectedProduct((prev) => ({ ...prev, PRODUCT_NAME: e.target.value, })) } />
-              <input type="text" className="input input-sm bg-base-200" placeholder="Price" value={selectedProduct?.PRODUCT_PRICE || ""} onChange={(e) => setSelectedProduct((prev) => ({ ...prev, PRODUCT_PRICE: e.target.value, })) } />
+              <input type="text" className="input input-sm bg-base-200" placeholder="Product Name" value={selectedProduct?.PRODUCT_NAME || ""} onChange={(e) => setSelectedProduct((prev) => ({ ...prev, PRODUCT_NAME: e.target.value, }))} />
+              <input type="text" className="input input-sm bg-base-200" placeholder="Price" value={selectedProduct?.PRODUCT_PRICE || ""} onChange={(e) => setSelectedProduct((prev) => ({ ...prev, PRODUCT_PRICE: e.target.value, }))} />
             </div>
 
             <div className="modal-action">
@@ -166,9 +164,7 @@ export default function Product() {
           <input type="text" placeholder="Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} className="w-[300px] input input-sm bg-base-200  w-full sm:w-56" />
           <input type="number" placeholder="Product Price" value={ProductPrice} onChange={(e) => setProductPrice(e.target.value)} className="w-[100px] input input-sm w-full sm:w-36 bg-base-200" />
           <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleFileChange} className="file-input file-input-sm bg-base-200 w-full" />
-          <button onClick={addProduct} className="btn btn-primary btn-sm">
-            Add Product
-          </button>
+          <button onClick={addProduct} className="btn btn-primary btn-sm"> Add Product </button>
         </div>
       </div>
       <div className="mt-4">
@@ -183,12 +179,8 @@ export default function Product() {
                 <span className="w-full sm:w-[220px] text-center"> DATE:       {new Date(product.PRODUCT_TIME_UPLOADED).toLocaleString()} </span>
 
                 <div className="flex flex-row ml-2">
-                  <button onClick={() => deleteProduct(product.id, product.IMAGE_URL)} className="btn btn-sm btn-error" >
-                    Delete
-                  </button>
-                  <button onClick={() => handleEditClick(product)} className="btn btn-sm btn-info ml-5" >
-                    Edit
-                  </button>
+                  <button onClick={() => deleteProduct(product.id, product.PRODUCT_ID)} className="btn btn-sm btn-error" > Delete </button>
+                  <button onClick={() => handleEditClick(product)} className="btn btn-sm btn-info ml-5" > Edit </button>
                 </div>
               </div>
             ))

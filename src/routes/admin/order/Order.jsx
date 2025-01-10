@@ -76,12 +76,7 @@ export default function Order() {
                     <td className="border px-4 py-2">₱{order.PRODUCT_PRICE}</td>
                     <td className="border px-4 py-2">₱{order.QUANTITY * order.PRODUCT_PRICE}</td>
                     <td className="border px-4 py-2">
-                      <button
-                        className="btn btn-sm btn-error"
-                        onClick={() => deleteOrder(order.id)}
-                      >
-                        Delete
-                      </button>
+                      <button className="btn btn-sm btn-error" onClick={() => deleteOrder(order.id)} > Delete </button>
                     </td>
                   </tr>
                 ))}

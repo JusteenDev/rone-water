@@ -53,6 +53,7 @@ export default function ProductCard({ url, productName, productPrice }) {
             <p>₱ {productPrice}</p>
             <div className="card-actions">
               <button className="btn btn-md btn-primary" onClick={() => document.getElementById("my_modal_5").showModal()} > Order Now <IoIosWater className="w-6 h-6" /> </button>
+              
               <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box flex flex-col items-center justify-center">
                   <div className="flex flex-col items-start justify-center w-full">
@@ -84,6 +85,7 @@ export default function ProductCard({ url, productName, productPrice }) {
                   </div>
                 </div>
               </dialog>
+              
             </div>
           </div>
         </div>
