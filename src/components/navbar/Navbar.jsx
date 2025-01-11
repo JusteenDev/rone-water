@@ -31,7 +31,7 @@ export default function Navbar() {
       {/* Mobile View */}
       <div
         className="hero min-h-screen sm:hidden bg-no-repeat bg-cover"
-        style={{ backgroundImage: `url(https://res.cloudinary.com/dv8p1hpew/image/upload/v1736488955/ycivqhqkvdwxqpm3bvyt.png)` }}
+        style={{ backgroundImage: `url(https://res.cloudinary.com/dv8p1hpew/image/upload/v1736500721/vm2taafgngayvoxlsree.png)` }}
       >
         <div className="hero-overlay bg-opacity-0"></div>
         <div className="hero-content text-neutral-content text-center">

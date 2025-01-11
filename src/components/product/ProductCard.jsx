@@ -44,11 +44,11 @@ export default function ProductCard({ url, productName, productPrice }) {
   return (
     <>
       <div className="products">
-        <div className="card p-2 bg-base-200 rounded-none shadow-xl w-screen h-96 sm:w-72">
-          <figure className="px-10 pt-2 pb-5">
-            <img src={url} alt={productName} className="rounded-xl shadow-xl h-36 w-36" />
+        <div className="card p-2 bg-base-100 w-full rounded-xl shadow-xl bg-base-200 h-96 sm:w-72">
+          <figure className="px-5 pt-2">
+            <img src={url} alt={productName} className="rounded-xl shadow-xl w-64" />
           </figure>
-          <div className="card-body items-center text-center">
+          <div className="card-body items-center text-center ">
             <h2 className="card-title">{productName}</h2>
             <p>₱ {productPrice}</p>
             <div className="card-actions">
